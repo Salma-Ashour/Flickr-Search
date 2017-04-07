@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Flickr-Search.xcodeproj">
+      location = "self:/Users/Salma/Desktop/Flickr-Search/Flickr-Search.xcodeproj">
    </FileRef>
 </Workspace>

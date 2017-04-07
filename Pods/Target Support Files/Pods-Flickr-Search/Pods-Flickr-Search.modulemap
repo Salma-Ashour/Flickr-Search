@@ -1,0 +1,6 @@
+framework module Pods_Flickr_Search {
+  umbrella header "Pods-Flickr-Search-umbrella.h"
+
+  export *
+  module * { export * }
+}

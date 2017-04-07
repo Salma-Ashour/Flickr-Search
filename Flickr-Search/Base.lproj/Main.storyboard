@@ -1,26 +1,145 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NUx-Re-8eg">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Flickr-Search-->
+        <scene sceneID="Uo9-ZF-Dxv">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="u37-Zk-syf" customClass="SearchVC" customModule="Flickr_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="Azd-Hd-nXp"/>
+                        <viewControllerLayoutGuide type="bottom" id="WZO-IM-Mmc"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="eXr-GM-Fru">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ce2-V8-jCO">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="169" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sTM-Pv-doC">
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchCell" rowHeight="170" id="cZp-V9-Fhh" customClass="SearchCell" customModule="Flickr_Search" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="170"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cZp-V9-Fhh" id="ETJ-MS-znP">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eiM-tD-UvO">
+                                                    <rect key="frame" x="16" y="16" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="eiM-tD-UvO" secondAttribute="height" multiplier="1:1" id="eR7-8s-sFW"/>
+                                                        <constraint firstAttribute="width" constant="100" id="gcA-dz-PP6"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbK-ir-jvm">
+                                                    <rect key="frame" x="124" y="16" width="187" height="137.5"/>
+                                                    <string key="text">Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.Photo Title.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-icon" translatesAutoresizingMaskIntoConstraints="NO" id="aK6-yv-Si6">
+                                                    <rect key="frame" x="319" y="65" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="aK6-yv-Si6" secondAttribute="height" multiplier="1:1" id="54u-5v-MCv"/>
+                                                        <constraint firstAttribute="width" constant="40" id="cAZ-mv-d00"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="eiM-tD-UvO" secondAttribute="bottom" constant="8" id="2yz-lf-gGi"/>
+                                                <constraint firstItem="eiM-tD-UvO" firstAttribute="top" secondItem="ETJ-MS-znP" secondAttribute="topMargin" constant="8" id="8Dd-FR-mQ6"/>
+                                                <constraint firstItem="eiM-tD-UvO" firstAttribute="leading" secondItem="ETJ-MS-znP" secondAttribute="leadingMargin" constant="8" id="CLA-jV-ZLY"/>
+                                                <constraint firstItem="aK6-yv-Si6" firstAttribute="leading" secondItem="fbK-ir-jvm" secondAttribute="trailing" constant="8" id="Dkc-JC-auQ"/>
+                                                <constraint firstItem="fbK-ir-jvm" firstAttribute="leading" secondItem="eiM-tD-UvO" secondAttribute="trailing" constant="8" id="QSz-99-XUA"/>
+                                                <constraint firstItem="fbK-ir-jvm" firstAttribute="top" secondItem="ETJ-MS-znP" secondAttribute="topMargin" constant="8" id="acz-SL-3XD"/>
+                                                <constraint firstItem="aK6-yv-Si6" firstAttribute="centerY" secondItem="ETJ-MS-znP" secondAttribute="centerY" id="gfE-kU-k37"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aK6-yv-Si6" secondAttribute="trailing" constant="8" id="hFV-zX-jLf"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="fbK-ir-jvm" secondAttribute="bottom" constant="8" id="uDS-xs-1T5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="filckrImageView" destination="eiM-tD-UvO" id="Uky-j9-o17"/>
+                                            <outlet property="flickrPhotoTitleLB" destination="fbK-ir-jvm" id="x76-Hl-UPr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ce2-V8-jCO" firstAttribute="leading" secondItem="eXr-GM-Fru" secondAttribute="leading" id="4Kb-Bh-30X"/>
+                            <constraint firstAttribute="trailing" secondItem="sTM-Pv-doC" secondAttribute="trailing" id="BRn-VP-WUd"/>
+                            <constraint firstItem="Ce2-V8-jCO" firstAttribute="top" secondItem="Azd-Hd-nXp" secondAttribute="bottom" id="JKS-ij-wQ0"/>
+                            <constraint firstItem="WZO-IM-Mmc" firstAttribute="top" secondItem="sTM-Pv-doC" secondAttribute="bottom" id="NLJ-Hk-10S"/>
+                            <constraint firstItem="sTM-Pv-doC" firstAttribute="leading" secondItem="eXr-GM-Fru" secondAttribute="leading" id="OML-tW-Xd3"/>
+                            <constraint firstAttribute="trailing" secondItem="Ce2-V8-jCO" secondAttribute="trailing" id="tjA-KN-dOB"/>
+                            <constraint firstItem="sTM-Pv-doC" firstAttribute="top" secondItem="Ce2-V8-jCO" secondAttribute="bottom" id="vES-5G-FcN"/>
+                            <constraint firstItem="sTM-Pv-doC" firstAttribute="top" secondItem="Ce2-V8-jCO" secondAttribute="bottom" id="yb7-c5-ezA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Flickr-Search" id="eiz-R3-Z7S"/>
+                    <connections>
+                        <outlet property="photosTBV" destination="sTM-Pv-doC" id="M9v-j3-V8P"/>
+                        <outlet property="searchBar" destination="Ce2-V8-jCO" id="uMu-Fa-SJM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nSW-Gl-8Ce" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1309.5999999999999" y="-57.121439280359823"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="B43-6s-3q0">
+            <objects>
+                <viewController id="UAa-J6-c6l" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VqC-df-4Wn"/>
+                        <viewControllerLayoutGuide type="bottom" id="UeK-f6-PQ8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WoN-QP-Msg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJE-B2-28j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2112.8000000000002" y="-56.221889055472268"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZmL-Sx-K5c">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NUx-Re-8eg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6hf-tP-yUb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="u37-Zk-syf" kind="relationship" relationship="rootViewController" id="3cv-Df-YfX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycR-2l-TAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="502" y="-54"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow-icon" width="42" height="42"/>
+    </resources>
 </document>
