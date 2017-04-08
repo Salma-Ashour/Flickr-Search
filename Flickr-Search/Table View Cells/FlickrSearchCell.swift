@@ -1,5 +1,5 @@
 //
-//  SearchCell.swift
+//  FlickrSearchCell.swift
 //  Flickr-Search
 //
 //  Created by Salma Ashour on 4/7/17.
@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class SearchCell: UITableViewCell {
+class FlickrSearchCell: UITableViewCell {
 
     
     //MARK:- IBOutlets
@@ -28,12 +28,11 @@ class SearchCell: UITableViewCell {
     }
     
     func setupCell(photo: Photo){
-        flickrPhotoTitleLB.text = photo.title
+        flickrPhotoTitleLB.text = photo.value(forKey: "title") as! String?
         
         
-        let flickrImageURL = FlickrSearchAPIController.generateFlickerImageURL(farm: photo.farm!, server: photo.server!, id: photo.id!, secret: photo.secret!, size: "m")
-        
-        filckrImageView.kf.setImage(with: flickrImageURL)
+       // let flickrImageURL = FlickrSearchAPIController.generateFlickerImageURL(farm: Int(photo.farm), server: photo.server!, id: photo.id!, secret: photo.secret!, size: "m")
+        //filckrImageView.kf.setImage(with: flickrImageURL)
     
     
     }

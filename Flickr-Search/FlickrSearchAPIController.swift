@@ -14,7 +14,7 @@ class FlickrSearchAPIController{
     
     static func searchFlickr(term: String, handler: @escaping ((Bool, [Photo]?) -> Void)) {
         
-        let params: Parameters = ["api_key": Const.api_key, "method": "flickr.photos.search", "text": term, "per_page": 20, "format": "json", "nojsoncallback": 1]
+        let params: Parameters = ["api_key": Const.api_key, "method": Const.flickrSerachMethod, "text": term, "per_page": Const.pre_page, "format": Const.format, "nojsoncallback": Const.nojsoncallback]
         
         
         Alamofire.request(Const.baseURL, method: .get, parameters: params).responseString { (response) in
@@ -25,13 +25,12 @@ class FlickrSearchAPIController{
                 let jsonData = response.result.value!
                 if let returnedResult = [Photo].deserialize(from: jsonData, designatedPath: "photos.photo") {
                    let photos = returnedResult as! [Photo]
-                    
+                    print("**********************\(photos[0].title)")
                     handler(true, photos)
                 }
             }
             else {
                 handler(false, nil)
-
             }
         }
     }
@@ -44,12 +43,37 @@ class FlickrSearchAPIController{
         }
         return nil
     }
+    
+    
+    static func getUserPhotos(userID: String, handler: @escaping ((Bool, [Photo]?) -> Void)) {
+        
+        let params: Parameters = ["api_key": Const.api_key, "user_id": userID, "method": Const.userPhotosMethod, "per_page": Const.pre_page, "format": Const.format, "nojsoncallback": Const.nojsoncallback]
+        
+        
+        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseString { (response) in
+            
+            print(response)
+            if(response.result.isSuccess) //Success
+            {
+                let jsonData = response.result.value!
+                if let returnedResult = [Photo].deserialize(from: jsonData, designatedPath: "photos.photo") {
+                    let photos = returnedResult as! [Photo]
+                    
+                    handler(true, photos)
+                }
+            }
+            else {
+                handler(false, nil)
+                
+            }
+        }
+    }
 }
 
 
-    
-    
-    
-    
-    
+
+
+
+
+
 

@@ -2,4 +2,102 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flickr-Search/FlickrSearchAPIController.swift"
+            timestampString = "513357895.444866"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "searchFlickr(term:handler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Flickr_Search.FlickrSearchAPIController.(searchFlickr (term : Swift.String, handler : (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Flickr_Search.Photo&gt;&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Flickr-Search"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Salma/Desktop/Flickr-Search/Flickr-Search/FlickrSearchAPIController.swift"
+                  timestampString = "513365051.67132"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1092">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Flickr_Search.FlickrSearchAPIController.(searchFlickr (term : Swift.String, handler : (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Flickr_Search.Photo&gt;&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Flickr-Search"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Salma/Desktop/Flickr-Search/Flickr-Search/FlickrSearchAPIController.swift"
+                  timestampString = "513365051.672676"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1248">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flickr-Search/Controllers/FlickrSearchVC.swift"
+            timestampString = "513364945.756751"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "getPhotos(term:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flickr_Search.FlickrSearchVC.(getPhotos (term : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "Flickr-Search"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Salma/Desktop/Flickr-Search/Flickr-Search/Controllers/FlickrSearchVC.swift"
+                  timestampString = "513365051.676165"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "192">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flickr_Search.FlickrSearchVC.(getPhotos (term : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "Flickr-Search"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Salma/Desktop/Flickr-Search/Flickr-Search/Controllers/FlickrSearchVC.swift"
+                  timestampString = "513365051.677615"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "232">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

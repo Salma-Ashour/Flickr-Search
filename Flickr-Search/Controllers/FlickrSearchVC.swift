@@ -1,5 +1,5 @@
 //
-//  SearchVC.swift
+//  FlickrSearchVC
 //  Flickr-Search
 //
 //  Created by Salma Ashour on 4/7/17.
@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class SearchVC: UIViewController {
+class FlickrSearchVC: UIViewController {
 
     var flickrPhotos: [Photo] = []
     
     //MARK:- IBOutlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var photosTBV: UITableView!
+    @IBOutlet weak var activity: NVActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -22,6 +24,9 @@ class SearchVC: UIViewController {
         self.photosTBV.estimatedRowHeight = 170
         self.photosTBV.rowHeight = UITableViewAutomaticDimension
         searchBar.delegate = self
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,9 +35,10 @@ class SearchVC: UIViewController {
     }
     
     func getPhotos(term: String){
+        activity.startAnimating()
         FlickrSearchAPIController.searchFlickr(term: term) {
             result, photos in
-            
+            self.activity.stopAnimating()
             if let photos = photos{
                 self.flickrPhotos.removeAll()
                 self.flickrPhotos = photos
@@ -45,23 +51,26 @@ class SearchVC: UIViewController {
     }
 }
 
-extension SearchVC: UITableViewDelegate{
+extension FlickrSearchVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let userPhotosVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "flickrUserPhotos") as! FlickrUserPhotosVC
+        userPhotosVC.userID = self.flickrPhotos[indexPath.row].owner
+        self.navigationController?.pushViewController(userPhotosVC, animated: true)
         
     }
     
 }
 
-extension SearchVC: UITableViewDataSource{
+extension FlickrSearchVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return flickrPhotos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let searchCell = photosTBV.dequeueReusableCell(withIdentifier: "searchCell") as! SearchCell
-        searchCell.setupCell(photo: flickrPhotos[indexPath.row])
-        return searchCell
+        let flickrSearchCell = photosTBV.dequeueReusableCell(withIdentifier: "flickrSearchCell") as! FlickrSearchCell
+        flickrSearchCell.setupCell(photo: flickrPhotos[indexPath.row])
+        return flickrSearchCell
         }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.searchBar.resignFirstResponder()
@@ -69,19 +78,12 @@ extension SearchVC: UITableViewDataSource{
     
 }
 
-extension SearchVC: UISearchBarDelegate{
+extension FlickrSearchVC: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         getPhotos(term: searchBar.text!)
-    }
-    
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
         
     }
-    
-    
-    
 }
 

@@ -7,8 +7,9 @@
 //
 
 import HandyJSON
+import CoreData
 
-class Photo: HandyJSON{
+class Photoo: HandyJSON{
     
     var id: String?
     var owner: String?

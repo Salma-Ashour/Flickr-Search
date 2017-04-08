@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Flickr-Search-->
+        <!--Flickr Search-->
         <scene sceneID="Uo9-ZF-Dxv">
             <objects>
-                <viewController id="u37-Zk-syf" customClass="SearchVC" customModule="Flickr_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="u37-Zk-syf" customClass="FlickrSearchVC" customModule="Flickr_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Azd-Hd-nXp"/>
                         <viewControllerLayoutGuide type="bottom" id="WZO-IM-Mmc"/>
@@ -27,11 +27,11 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="169" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sTM-Pv-doC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="169" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sTM-Pv-doC">
                                 <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchCell" rowHeight="170" id="cZp-V9-Fhh" customClass="SearchCell" customModule="Flickr_Search" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flickrSearchCell" rowHeight="170" id="cZp-V9-Fhh" customClass="FlickrSearchCell" customModule="Flickr_Search" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="170"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cZp-V9-Fhh" id="ETJ-MS-znP">
@@ -79,21 +79,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOl-sg-l4E" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="1gZ-t1-gOo"/>
+                                    <constraint firstAttribute="width" secondItem="cOl-sg-l4E" secondAttribute="height" multiplier="1:1" id="X0c-SC-6gU"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ce2-V8-jCO" firstAttribute="leading" secondItem="eXr-GM-Fru" secondAttribute="leading" id="4Kb-Bh-30X"/>
                             <constraint firstAttribute="trailing" secondItem="sTM-Pv-doC" secondAttribute="trailing" id="BRn-VP-WUd"/>
+                            <constraint firstItem="cOl-sg-l4E" firstAttribute="centerX" secondItem="eXr-GM-Fru" secondAttribute="centerX" id="BpJ-lP-PJ2"/>
                             <constraint firstItem="Ce2-V8-jCO" firstAttribute="top" secondItem="Azd-Hd-nXp" secondAttribute="bottom" id="JKS-ij-wQ0"/>
                             <constraint firstItem="WZO-IM-Mmc" firstAttribute="top" secondItem="sTM-Pv-doC" secondAttribute="bottom" id="NLJ-Hk-10S"/>
                             <constraint firstItem="sTM-Pv-doC" firstAttribute="leading" secondItem="eXr-GM-Fru" secondAttribute="leading" id="OML-tW-Xd3"/>
+                            <constraint firstItem="cOl-sg-l4E" firstAttribute="centerY" secondItem="eXr-GM-Fru" secondAttribute="centerY" id="pIT-ep-UDr"/>
                             <constraint firstAttribute="trailing" secondItem="Ce2-V8-jCO" secondAttribute="trailing" id="tjA-KN-dOB"/>
                             <constraint firstItem="sTM-Pv-doC" firstAttribute="top" secondItem="Ce2-V8-jCO" secondAttribute="bottom" id="vES-5G-FcN"/>
                             <constraint firstItem="sTM-Pv-doC" firstAttribute="top" secondItem="Ce2-V8-jCO" secondAttribute="bottom" id="yb7-c5-ezA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Flickr-Search" id="eiz-R3-Z7S"/>
+                    <navigationItem key="navigationItem" title="Flickr Search" id="eiz-R3-Z7S"/>
                     <connections>
+                        <outlet property="activity" destination="cOl-sg-l4E" id="PCE-nF-ujG"/>
                         <outlet property="photosTBV" destination="sTM-Pv-doC" id="M9v-j3-V8P"/>
                         <outlet property="searchBar" destination="Ce2-V8-jCO" id="uMu-Fa-SJM"/>
                     </connections>
@@ -102,10 +113,10 @@
             </objects>
             <point key="canvasLocation" x="1309.5999999999999" y="-57.121439280359823"/>
         </scene>
-        <!--View Controller-->
+        <!--Flickr User PhotosVC-->
         <scene sceneID="B43-6s-3q0">
             <objects>
-                <viewController id="UAa-J6-c6l" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="flickrUserPhotos" id="UAa-J6-c6l" customClass="FlickrUserPhotosVC" customModule="Flickr_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VqC-df-4Wn"/>
                         <viewControllerLayoutGuide type="bottom" id="UeK-f6-PQ8"/>
@@ -113,8 +124,72 @@
                     <view key="view" contentMode="scaleToFill" id="WoN-QP-Msg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="157" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3M7-nO-kmG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flickrUserPhotoCell" rowHeight="157" id="W0B-99-B1w" customClass="FlickrUserPhotoCell" customModule="Flickr_Search" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="157"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W0B-99-B1w" id="3sf-TK-oC2">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1gg-mm-nd5">
+                                                    <rect key="frame" x="16" y="16" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="1gg-mm-nd5" secondAttribute="height" multiplier="1:1" id="IBT-7F-UfM"/>
+                                                        <constraint firstAttribute="width" constant="100" id="hTl-KE-Vug"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzM-UN-lhH">
+                                                    <rect key="frame" x="124" y="16" width="235" height="124.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1gg-mm-nd5" firstAttribute="top" secondItem="3sf-TK-oC2" secondAttribute="topMargin" constant="8" id="0Zb-hO-Ik6"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nzM-UN-lhH" secondAttribute="trailing" constant="8" id="7BZ-Vi-TPO"/>
+                                                <constraint firstItem="nzM-UN-lhH" firstAttribute="leading" secondItem="1gg-mm-nd5" secondAttribute="trailing" constant="8" id="9iB-Vk-Gcc"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="nzM-UN-lhH" secondAttribute="bottom" constant="8" id="B8N-tj-eLz"/>
+                                                <constraint firstItem="1gg-mm-nd5" firstAttribute="leading" secondItem="3sf-TK-oC2" secondAttribute="leadingMargin" constant="8" id="HM2-yV-rQG"/>
+                                                <constraint firstItem="nzM-UN-lhH" firstAttribute="top" secondItem="3sf-TK-oC2" secondAttribute="topMargin" constant="8" id="Ij4-pf-RV2"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="1gg-mm-nd5" secondAttribute="bottom" constant="8" id="TxY-aa-acw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="flickrImage" destination="1gg-mm-nd5" id="UtN-nK-I7h"/>
+                                            <outlet property="flickrPhotoTitleLB" destination="nzM-UN-lhH" id="GLq-fn-TBV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xCa-GF-u2z" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="xCa-GF-u2z" secondAttribute="height" multiplier="1:1" id="9sJ-Zh-Fqy"/>
+                                    <constraint firstAttribute="width" constant="40" id="dxa-ek-Wtu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3M7-nO-kmG" firstAttribute="leading" secondItem="WoN-QP-Msg" secondAttribute="leading" id="AXP-XV-hBx"/>
+                            <constraint firstItem="UeK-f6-PQ8" firstAttribute="top" secondItem="3M7-nO-kmG" secondAttribute="bottom" id="MHK-Hi-fdH"/>
+                            <constraint firstItem="3M7-nO-kmG" firstAttribute="top" secondItem="WoN-QP-Msg" secondAttribute="top" id="OYP-Ep-uml"/>
+                            <constraint firstItem="xCa-GF-u2z" firstAttribute="centerX" secondItem="WoN-QP-Msg" secondAttribute="centerX" id="aW7-At-kas"/>
+                            <constraint firstItem="xCa-GF-u2z" firstAttribute="centerY" secondItem="WoN-QP-Msg" secondAttribute="centerY" id="hM9-j3-GLX"/>
+                            <constraint firstAttribute="trailing" secondItem="3M7-nO-kmG" secondAttribute="trailing" id="t88-RW-Pkd"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activity" destination="xCa-GF-u2z" id="lSZ-Ij-5F7"/>
+                        <outlet property="userPhotosTBV" destination="3M7-nO-kmG" id="yfV-Kp-yn2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJE-B2-28j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
