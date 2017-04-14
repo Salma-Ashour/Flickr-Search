@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import NVActivityIndicatorView
 
 class FlickrSearchVC: UIViewController {
@@ -24,16 +25,22 @@ class FlickrSearchVC: UIViewController {
         self.photosTBV.estimatedRowHeight = 170
         self.photosTBV.rowHeight = UITableViewAutomaticDimension
         searchBar.delegate = self
+        self.photosTBV.delegate = self
+        self.photosTBV.dataSource = self
         
+        if !hasConnection(){
+           flickrPhotos =  DataBaseHelper.fetchPhotos()
+           self.photosTBV.reloadData()
+        }
         
-        
-    }
+}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:- defined methods.
     func getPhotos(term: String){
         activity.startAnimating()
         FlickrSearchAPIController.searchFlickr(term: term) {
@@ -42,12 +49,19 @@ class FlickrSearchVC: UIViewController {
             if let photos = photos{
                 self.flickrPhotos.removeAll()
                 self.flickrPhotos = photos
-                self.photosTBV.delegate = self
-                self.photosTBV.dataSource = self
                 self.photosTBV.reloadData()
                 
             }
         }
+    }
+    
+    
+    func hasConnection(host: String? = nil) -> Bool{
+        let manager = host == nil ? NetworkReachabilityManager() : NetworkReachabilityManager(host: host!)
+        if let manager = manager{
+            return manager.isReachable
+        }
+        return false
     }
 }
 

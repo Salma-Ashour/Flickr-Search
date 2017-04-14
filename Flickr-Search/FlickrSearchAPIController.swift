@@ -9,6 +9,8 @@
 import Foundation
 import HandyJSON
 import Alamofire
+import SwiftyJSON
+import CoreData
 
 class FlickrSearchAPIController{
     
@@ -17,17 +19,41 @@ class FlickrSearchAPIController{
         let params: Parameters = ["api_key": Const.api_key, "method": Const.flickrSerachMethod, "text": term, "per_page": Const.pre_page, "format": Const.format, "nojsoncallback": Const.nojsoncallback]
         
         
-        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseString { (response) in
+        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseJSON { (response) in
             
             print(response)
             if(response.result.isSuccess) //Success
             {
-                let jsonData = response.result.value!
-                if let returnedResult = [Photo].deserialize(from: jsonData, designatedPath: "photos.photo") {
-                   let photos = returnedResult as! [Photo]
-                    print("**********************\(photos[0].title)")
-                    handler(true, photos)
+                DataBaseHelper.deleteAllData()
+                
+                var photos: [Photo] = []
+                let jsonData = JSON(response.result.value!)
+                
+                print(jsonData["stat"])
+                let photosArray = jsonData["photos"]["photo"].array
+                for photoObject in photosArray!{
+                    let photo = NSManagedObject(entity: DataBaseHelper.entity,
+                                                 insertInto: DataBaseHelper.managedContext)
+                    
+                    photo.setValue(Int32(photoObject["farm"].intValue), forKeyPath: "farm")
+                    photo.setValue(photoObject["id"].stringValue, forKeyPath: "id")
+                    photo.setValue(photoObject["isfamily"].boolValue, forKeyPath: "isfamily")
+                    photo.setValue(photoObject["isfriend"].boolValue, forKeyPath: "isfriend")
+                    photo.setValue(photoObject["ispublic"].boolValue, forKeyPath: "ispublic")
+                    photo.setValue(photoObject["owner"].stringValue, forKeyPath: "owner")
+                    photo.setValue(photoObject["secret"].stringValue, forKeyPath: "secret")
+                    photo.setValue(photoObject["server"].stringValue, forKeyPath: "server")
+                    photo.setValue(photoObject["title"].stringValue, forKeyPath: "title")
+                    photo.setValue(false, forKeyPath: "isMore")
+
+                    do {
+                        try DataBaseHelper.managedContext?.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                    photos.append(photo as! Photo)
                 }
+                handler(true, photos)
             }
             else {
                 handler(false, nil)
@@ -50,17 +76,42 @@ class FlickrSearchAPIController{
         let params: Parameters = ["api_key": Const.api_key, "user_id": userID, "method": Const.userPhotosMethod, "per_page": Const.pre_page, "format": Const.format, "nojsoncallback": Const.nojsoncallback]
         
         
-        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseString { (response) in
+        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseJSON { (response) in
             
             print(response)
             if(response.result.isSuccess) //Success
             {
-                let jsonData = response.result.value!
-                if let returnedResult = [Photo].deserialize(from: jsonData, designatedPath: "photos.photo") {
-                    let photos = returnedResult as! [Photo]
+                DataBaseHelper.deleteUserPhotos(userID: userID)
+                
+                var photos: [Photo] = []
+                let jsonData = JSON(response.result.value!)
+                
+                print(jsonData["stat"])
+                let photosArray = jsonData["photos"]["photo"].array
+                for photoObject in photosArray!{
+                    let photo = NSManagedObject(entity: DataBaseHelper.entity,
+                                                insertInto: DataBaseHelper.managedContext)
                     
-                    handler(true, photos)
+                    photo.setValue(Int32(photoObject["farm"].intValue), forKeyPath: "farm")
+                    photo.setValue(photoObject["id"].stringValue, forKeyPath: "id")
+                    photo.setValue(photoObject["isfamily"].boolValue, forKeyPath: "isfamily")
+                    photo.setValue(photoObject["isfriend"].boolValue, forKeyPath: "isfriend")
+                    photo.setValue(photoObject["ispublic"].boolValue, forKeyPath: "ispublic")
+                    photo.setValue(photoObject["owner"].stringValue, forKeyPath: "owner")
+                    photo.setValue(photoObject["secret"].stringValue, forKeyPath: "secret")
+                    photo.setValue(photoObject["server"].stringValue, forKeyPath: "server")
+                    photo.setValue(photoObject["title"].stringValue, forKeyPath: "title")
+                    photo.setValue(true, forKeyPath: "isMore")
+                    
+                    do {
+                        try DataBaseHelper.managedContext?.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                    photos.append(photo as! Photo)
                 }
+                handler(true, photos)
+
             }
             else {
                 handler(false, nil)
@@ -69,11 +120,3 @@ class FlickrSearchAPIController{
         }
     }
 }
-
-
-
-
-
-
-
-

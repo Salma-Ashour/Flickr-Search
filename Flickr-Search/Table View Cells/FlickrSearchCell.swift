@@ -29,10 +29,8 @@ class FlickrSearchCell: UITableViewCell {
     
     func setupCell(photo: Photo){
         flickrPhotoTitleLB.text = photo.value(forKey: "title") as! String?
-        
-        
-       // let flickrImageURL = FlickrSearchAPIController.generateFlickerImageURL(farm: Int(photo.farm), server: photo.server!, id: photo.id!, secret: photo.secret!, size: "m")
-        //filckrImageView.kf.setImage(with: flickrImageURL)
+        let flickrImageURL = FlickrSearchAPIController.generateFlickerImageURL(farm: Int(photo.farm), server: photo.server!, id: photo.id!, secret: photo.secret!, size: "m")
+        filckrImageView.kf.setImage(with: flickrImageURL)
     
     
     }

@@ -3,19 +3,22 @@ PODS:
   - HandyJSON (1.6.1)
   - Kingfisher (3.5.2)
   - NVActivityIndicatorView (3.6.0)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
   - HandyJSON (~> 1.5)
   - Kingfisher (~> 3.0)
   - NVActivityIndicatorView (~> 3.6)
+  - SwiftyJSON (~> 3.1)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   HandyJSON: dcc98115467462a4749db81bc8a9052607600bdf
   Kingfisher: 9950e382c500b6834ce004c7c4131c444e90c3a1
   NVActivityIndicatorView: c7c1c4300b418bd9ed06459e78d4df859ddbe31f
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: d2031b2f501ac6be5d610715beca1d2eb39883bd
+PODFILE CHECKSUM: c8cec1b2dd260b0ea08eef412128a05b8d93a3fb
 
 COCOAPODS: 1.1.1

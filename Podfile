@@ -5,6 +5,7 @@ target 'Flickr-Search' do
   
     pod 'Alamofire', '~> 4.3'
     pod 'HandyJSON', '~> 1.5'
+    pod 'SwiftyJSON', '~> 3.1'
     pod 'Kingfisher', '~> 3.0'
     pod 'NVActivityIndicatorView', '~> 3.6'
     

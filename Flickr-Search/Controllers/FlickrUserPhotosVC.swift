@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import NVActivityIndicatorView
 
 class FlickrUserPhotosVC: UIViewController {
@@ -19,7 +20,15 @@ class FlickrUserPhotosVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.userPhotosTBV.delegate = self
+        self.userPhotosTBV.dataSource = self
+        if !hasConnection(){
+           flickrPhotos =  DataBaseHelper.fetchUserPhotos(userID: userID)
+            self.userPhotosTBV.reloadData()
+        }
+        else{
         getUserPhotos(userID: userID)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,11 +43,17 @@ class FlickrUserPhotosVC: UIViewController {
             if let photos = photos{
                 self.flickrPhotos.removeAll()
                 self.flickrPhotos = photos
-                self.userPhotosTBV.delegate = self
-                self.userPhotosTBV.dataSource = self
                 self.userPhotosTBV.reloadData()
             }
         }
+    }
+    
+    func hasConnection(host: String? = nil) -> Bool{
+        let manager = host == nil ? NetworkReachabilityManager() : NetworkReachabilityManager(host: host!)
+        if let manager = manager{
+            return manager.isReachable
+        }
+        return false
     }
 }
 
@@ -46,7 +61,6 @@ extension FlickrUserPhotosVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
-    
 }
 
 extension FlickrUserPhotosVC: UITableViewDataSource{
