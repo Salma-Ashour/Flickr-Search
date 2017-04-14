@@ -72,7 +72,6 @@ extension FlickrSearchVC: UITableViewDelegate{
         self.navigationController?.pushViewController(userPhotosVC, animated: true)
         
     }
-    
 }
 
 extension FlickrSearchVC: UITableViewDataSource{

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class DataBaseHelper{
+ class DataBaseHelper{
     
     static let appDelegate =
         UIApplication.shared.delegate as? AppDelegate
