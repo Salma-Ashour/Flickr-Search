@@ -22,7 +22,7 @@ class FlickrUserPhotosVC: UIViewController {
         super.viewDidLoad()
         self.userPhotosTBV.delegate = self
         self.userPhotosTBV.dataSource = self
-        if !hasConnection(){
+        if !Utils.hasConnection(){
            flickrPhotos =  DataBaseHelper.fetchUserPhotos(userID: userID)
             self.userPhotosTBV.reloadData()
         }
@@ -38,22 +38,28 @@ class FlickrUserPhotosVC: UIViewController {
     func getUserPhotos(userID: String){
         activity.startAnimating()
         FlickrSearchAPIController.getUserPhotos(userID: userID) {
-            result, photos in
+            result, errorCode, photos in
             self.activity.stopAnimating()
             if let photos = photos{
                 self.flickrPhotos.removeAll()
                 self.flickrPhotos = photos
                 self.userPhotosTBV.reloadData()
             }
+            else{
+                if let errorCode = errorCode{
+                    switch errorCode{
+                    case 100:
+                        Utils.showBannerView(title: "Invalid API Key.")
+                        break
+                    case 105: 
+                        Utils.showBannerView(title: "Service currently unavailable.")
+                        break
+                    default:
+                        break
+                    }
+                }
+            }
         }
-    }
-    
-    func hasConnection(host: String? = nil) -> Bool{
-        let manager = host == nil ? NetworkReachabilityManager() : NetworkReachabilityManager(host: host!)
-        if let manager = manager{
-            return manager.isReachable
-        }
-        return false
     }
 }
 

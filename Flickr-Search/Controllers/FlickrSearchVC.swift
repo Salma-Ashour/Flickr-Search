@@ -11,7 +11,7 @@ import Alamofire
 import NVActivityIndicatorView
 
 class FlickrSearchVC: UIViewController {
-
+    
     var flickrPhotos: [Photo] = []
     
     //MARK:- IBOutlets
@@ -28,13 +28,13 @@ class FlickrSearchVC: UIViewController {
         self.photosTBV.delegate = self
         self.photosTBV.dataSource = self
         
-        if !hasConnection(){
-           flickrPhotos =  DataBaseHelper.fetchPhotos()
-           self.photosTBV.reloadData()
+        if !Utils.hasConnection(){
+            flickrPhotos =  DataBaseHelper.fetchPhotos()
+            self.photosTBV.reloadData()
         }
         
-}
-
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,24 +44,37 @@ class FlickrSearchVC: UIViewController {
     func getPhotos(term: String){
         activity.startAnimating()
         FlickrSearchAPIController.searchFlickr(term: term) {
-            result, photos in
+            result, errorCode,photos in
             self.activity.stopAnimating()
             if let photos = photos{
                 self.flickrPhotos.removeAll()
                 self.flickrPhotos = photos
                 self.photosTBV.reloadData()
                 
+            }else{
+                if let errorCode = errorCode{
+                    switch errorCode{
+                    case 2:
+                        Utils.showBannerView(title: "Unknown error")
+                        break
+                    case 4:
+                        Utils.showBannerView(title: "You don't have permission to view this pool")
+                        break
+                    case 10:
+                        Utils.showBannerView(title: "Sorry, the Flickr search API is not currently available.")
+                        break
+                    case 100:
+                        Utils.showBannerView(title: "Invalid API Key.")
+                        break
+                    case 105:
+                        Utils.showBannerView(title: "Service currently unavailable.")
+                        break
+                    default:
+                        break
+                    }
+                }
             }
         }
-    }
-    
-    
-    func hasConnection(host: String? = nil) -> Bool{
-        let manager = host == nil ? NetworkReachabilityManager() : NetworkReachabilityManager(host: host!)
-        if let manager = manager{
-            return manager.isReachable
-        }
-        return false
     }
 }
 
@@ -94,6 +107,10 @@ extension FlickrSearchVC: UITableViewDataSource{
 extension FlickrSearchVC: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !Utils.hasConnection(){
+            Utils.showBannerView(title: "No Internet Connection")
+            return
+        }
         getPhotos(term: searchBar.text!)
         searchBar.resignFirstResponder()
         

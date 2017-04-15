@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>HandyJSON.xcscheme</key>
+		<key>BRYXBanner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,12 +42,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17DC22280F675C860351293A56F5CE14</key>
+		<key>0F3B36547C3C2CC3060475E614BCBF32</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2771B241FCE337E606D5617826A23443</key>
+		<key>17DC22280F675C860351293A56F5CE14</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,7 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>82B63551B2D206CF3EA5CAA9368E1CEA</key>
+		<key>79244C43E9622BB329DC84E4AE85EF60</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,12 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C4944FEC314D1A66588651D006273ADE</key>
+		<key>A6E99B2B96643C1914B806C4D186A49A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F31EF2A58AC2236758FA9AC722BE97D9</key>
+		<key>C4944FEC314D1A66588651D006273ADE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

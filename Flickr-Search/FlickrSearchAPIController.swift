@@ -7,19 +7,18 @@
 //
 
 import Foundation
-import HandyJSON
 import Alamofire
 import SwiftyJSON
 import CoreData
 
 class FlickrSearchAPIController{
     
-    static func searchFlickr(term: String, handler: @escaping ((Bool, [Photo]?) -> Void)) {
+    static func searchFlickr(term: String, handler: @escaping ((Bool, Int? ,[Photo]?) -> Void)) {
         
-        let params: Parameters = ["api_key": Const.api_key, "method": Const.flickrSerachMethod, "text": term, "per_page": Const.pre_page, "format": Const.format, "nojsoncallback": Const.nojsoncallback]
+        let params: Parameters = [ "api_key": Utils.Const.api_key, "method": Utils.Const.flickrSerachMethod, "text": term, "per_page": Utils.Const.pre_page, "format": Utils.Const.format, "nojsoncallback": Utils.Const.nojsoncallback]
         
         
-        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseJSON { (response) in
+        Alamofire.request(Utils.Const.baseURL, method: .get, parameters: params).responseJSON { (response) in
             
             print(response)
             if(response.result.isSuccess) //Success
@@ -29,7 +28,7 @@ class FlickrSearchAPIController{
                 var photos: [Photo] = []
                 let jsonData = JSON(response.result.value!)
                 
-                print(jsonData["stat"])
+                if jsonData["stat"] == "ok" {
                 let photosArray = jsonData["photos"]["photo"].array
                 for photoObject in photosArray!{
                     let photo = NSManagedObject(entity: DataBaseHelper.entity,
@@ -53,10 +52,15 @@ class FlickrSearchAPIController{
                     }
                     photos.append(photo as! Photo)
                 }
-                handler(true, photos)
+                handler(true, nil ,photos)
+                }
+                else{
+                    let code = jsonData["code"].intValue
+                    handler(true, code ,nil)
+                }
             }
             else {
-                handler(false, nil)
+                handler(false, nil,nil)
             }
         }
     }
@@ -71,12 +75,12 @@ class FlickrSearchAPIController{
     }
     
     
-    static func getUserPhotos(userID: String, handler: @escaping ((Bool, [Photo]?) -> Void)) {
+    static func getUserPhotos(userID: String, handler: @escaping ((Bool, Int?, [Photo]?) -> Void)) {
         
-        let params: Parameters = ["api_key": Const.api_key, "user_id": userID, "method": Const.userPhotosMethod, "per_page": Const.pre_page, "format": Const.format, "nojsoncallback": Const.nojsoncallback]
+        let params: Parameters = ["api_key": Utils.Const.api_key, "user_id": userID, "method": Utils.Const.userPhotosMethod, "per_page": Utils.Const.pre_page, "format": Utils.Const.format, "nojsoncallback": Utils.Const.nojsoncallback]
         
         
-        Alamofire.request(Const.baseURL, method: .get, parameters: params).responseJSON { (response) in
+        Alamofire.request(Utils.Const.baseURL, method: .get, parameters: params).responseJSON { (response) in
             
             print(response)
             if(response.result.isSuccess) //Success
@@ -86,8 +90,8 @@ class FlickrSearchAPIController{
                 var photos: [Photo] = []
                 let jsonData = JSON(response.result.value!)
                 
-                print(jsonData["stat"])
-                let photosArray = jsonData["photos"]["photo"].array
+                 if jsonData["stat"] == "ok" {
+                 let photosArray = jsonData["photos"]["photo"].array
                 for photoObject in photosArray!{
                     let photo = NSManagedObject(entity: DataBaseHelper.entity,
                                                 insertInto: DataBaseHelper.managedContext)
@@ -110,11 +114,15 @@ class FlickrSearchAPIController{
                     }
                     photos.append(photo as! Photo)
                 }
-                handler(true, photos)
-
+                handler(true, nil,photos)
+                }
+                 else{
+                    let code = jsonData["code"].intValue
+                    handler(true, code ,nil)
+                }
             }
             else {
-                handler(false, nil)
+                handler(false, nil ,nil)
                 
             }
         }
